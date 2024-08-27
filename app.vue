@@ -17,6 +17,7 @@ const loadLeaflet = new Promise((resolve) => {
 });
 
 useHead({
+  title: "Gozem",
   script: {
     src:`https://maps.googleapis.com/maps/api/js?key=${useRuntimeConfig().public.GOOGLE_MAP_API_KEY}&libraries=places`
   }

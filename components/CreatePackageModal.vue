@@ -5,7 +5,7 @@
     <div class="bg-white p-6 rounded-md shadow-md w-full max-w-lg">
       <h2 class="text-xl font-semibold mb-4">Create Package</h2>
       <form @submit.prevent="createPackage">
-        <!-- Description -->
+
         <div class="mb-4">
           <label
             for="description"
@@ -21,7 +21,6 @@
           />
         </div>
 
-        <!-- From Name -->
         <div class="mb-4">
           <label for="from_name" class="block text-sm font-medium text-gray-700"
             >From Name</label
@@ -35,7 +34,6 @@
           />
         </div>
 
-        <!-- From Address -->
         <div class="mb-4">
           <label
             for="from_address"
@@ -65,7 +63,6 @@
           </ul>
         </div>
 
-        <!-- To Name -->
         <div class="mb-4">
           <label for="to_name" class="block text-sm font-medium text-gray-700"
             >To Name</label
@@ -79,7 +76,6 @@
           />
         </div>
 
-        <!-- To Address -->
         <div class="mb-4">
           <label
             for="to_address"
@@ -109,7 +105,6 @@
           </ul>
         </div>
 
-        <!-- Dimensions -->
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700"
             >Dimensions (cm)</label
@@ -183,14 +178,9 @@
 import axios from "axios";
 
 const BASEURL = useRuntimeConfig().public.SERVER_URL;
-const GOOGLE_MAP_API_KEY = useRuntimeConfig().public.GOOGLE_MAP_API_KEY;
-console.log(useRuntimeConfig().public.GOOGLE_MAP_API_KEY);
 
 const autocompleteFrom = new google.maps.places.AutocompleteService();
 const autocompleteTo = new google.maps.places.AutocompleteService();
-
-let fromTimeout;
-let toTimeout;
 
 const description = ref("");
 const fromName = ref("");
@@ -244,7 +234,7 @@ const selectAddress = async (prediction, addressType) => {
   }
 };
 
-// Function to create package
+
 const createPackage = async () => {
   try {
     const response = await axios.post(`${BASEURL}/v1/package`, {

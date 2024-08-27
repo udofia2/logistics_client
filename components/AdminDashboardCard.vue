@@ -1,9 +1,9 @@
 <template>
   <div class="container mx-auto p-4 max-w-6xl">
     <div class="flex flex-col md:flex-row md:space-x-6">
-      <!-- Left Sidebar -->
+
       <div class="flex-1 flex flex-col space-y-6">
-        <!-- Packages List -->
+ 
         <div
           class="bg-white p-4 border border-gray-300 rounded-md shadow-md flex-1"
         >
@@ -22,7 +22,7 @@
             </li>
           </ul>
         </div>
-        <!-- Deliveries List -->
+
         <div
           class="bg-white p-4 border border-gray-300 rounded-md shadow-md flex-1"
         >
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <!-- Right Panel -->
+ 
       <div class="w-full md:w-1/4 flex flex-col space-y-4">
         <div
           class="bg-white p-4 border border-gray-300 rounded-md shadow-md flex flex-col space-y-4"
@@ -65,7 +65,6 @@
       </div>
     </div>
 
-    <!-- Modals for Creating Package and Delivery -->
     <CreatePackageModal
       v-if="showCreatePackageModal"
       @close="showCreatePackageModal = false"
@@ -79,12 +78,10 @@
 </template>
 
 <script setup>
-// import CreatePackageModal from './CreatePackageModal.vue';
-// import CreateDeliveryModal from './CreateDeliveryModal.vue';
+
 import axios from "axios";
 
 const BASEURL = useRuntimeConfig().public.SERVER_URL;
-// const BASEURL_LIVE = useRuntimeConfig().public.LIVE_SERVER;
 
 const packages = ref([]);
 const deliveries = ref([]);
