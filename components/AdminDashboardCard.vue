@@ -12,8 +12,30 @@
             class="border-b border-gray-200 pb-2"
           >
             <div class="font-medium">{{ pk.description }}</div>
-            <div>ID: {{ pk.package_id }}</div>
-            <div class="flex space-x-2 md:mt-0 mt-2">
+  <div class="flex space-x-2">
+    <div>ID: {{ pk.package_id }}</div>
+    <button
+      @click="copyPackageId(pk.package_id)"
+      class="flex justify-center items-center bg-gray-200 py-1 px-2 rounded-md shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 5H6a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2v-5M8 5a2 2 0 00-2 2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-14a2 2 0 01-2-2V6a2 2 0 00-2 2z"
+        />
+      </svg>
+      Copy
+    </button>
+  </div>
+            <div class="flex space-x-2 md:mt-2 mt-2">
               <button
                 @click="viewPackage(pk.package_id)"
                 class="bg-blue-500 text-white py-1 px-2 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -93,17 +115,17 @@
     @close="showCreateDeliveryModal = false"
     :packages="packages"
   />
-    <ViewPackageModal
+  <ViewPackageModal
     v-if="showViewPackageModal"
     @close="showViewPackageModal = false"
     :packageId="viewingPackageId"
   />
 
   <EditPackageModal
-  v-if="showEditPackageModal"
-  @close="showEditPackageModal = false"
-  :packageId="editingPackageId"
-/>
+    v-if="showEditPackageModal"
+    @close="showEditPackageModal = false"
+    :packageId="editingPackageId"
+  />
 </template>
 
 <script setup>
@@ -116,14 +138,11 @@ const deliveries = ref([]);
 const showCreatePackageModal = ref(false);
 const showCreateDeliveryModal = ref(false);
 
-
 const showViewPackageModal = ref(false);
 const viewingPackageId = ref(null);
 
-
 const showEditPackageModal = ref(false);
 const editingPackageId = ref(null);
-
 
 const fetchData = async () => {
   try {
@@ -166,6 +185,11 @@ const viewPackage = (packageId) => {
 const editPackage = (packageId) => {
   editingPackageId.value = packageId;
   showEditPackageModal.value = true;
+};
+
+const copyPackageId = (packageId) => {
+  navigator.clipboard.writeText(packageId);
+  alert(`Package ID ${packageId} copied to clipboard!`);
 };
 
 onMounted(() => {
