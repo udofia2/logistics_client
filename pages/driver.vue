@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 useHead({
   title: "Gozem - Driver Dashboard",
 })
