@@ -144,6 +144,8 @@ const viewingPackageId = ref(null);
 const showEditPackageModal = ref(false);
 const editingPackageId = ref(null);
 
+const emit = defineEmits(['update:packages', 'update:deliveries']);
+
 const fetchData = async () => {
   try {
     const packageResponse = await axios.get(`${BASEURL}/v1/package`);
@@ -193,6 +195,9 @@ const copyPackageId = (packageId) => {
 };
 
 onMounted(() => {
-  fetchData();
+  fetchData().then(() => {
+  emit('update:packages', packages.value);
+  emit('update:deliveries', deliveries.value);
+});
 });
 </script>

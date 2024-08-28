@@ -119,12 +119,7 @@ const trackPackage = async () => {
 
 
 const initMap = () => {
-  if (!packageDetail.value.from_location || !deliveryDetail.value.location) return;
-
-  if (map.value && map.value.remove) {
-    map.value.off();
-    map.value.remove();
-  }
+  if (!packageDetail.value) return;
 
   map.value = L.map(mapElement.value).setView(
     [
@@ -139,7 +134,7 @@ const initMap = () => {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map.value);
 
-  L.marker([
+  const fromMarker = L.marker([
     packageDetail.value.from_location.lat,
     packageDetail.value.from_location.lng,
   ])
@@ -147,37 +142,60 @@ const initMap = () => {
     .bindPopup("Starting Location")
     .openPopup();
 
-  L.marker([
+  const toMarker = L.marker([
     packageDetail.value.to_location.lat,
     packageDetail.value.to_location.lng,
   ])
     .addTo(map.value)
-    .bindPopup("Destination Location");
-
-  L.marker([
-    deliveryDetail.value.location.lat,
-    deliveryDetail.value.location.lng,
-  ])
-    .addTo(map.value)
-    .bindPopup("Driver Location")
+    .bindPopup("Destination Location")
     .openPopup();
 
+  fromMarker.bindTooltip(`From: ${packageDetail.value.from_name}`, {
+    permanent: true,
+    direction: "right",
+  });
 
-  const route1 = [
+  toMarker.bindTooltip(`To: ${packageDetail.value.to_name}`, {
+    permanent: true,
+    direction: "left",
+  });
+
+  const route = [
     [
       packageDetail.value.from_location.lat,
       packageDetail.value.from_location.lng,
     ],
-    [deliveryDetail.value.location.lat, deliveryDetail.value.location.lng],
+    [
+      packageDetail.value.to_location.lat,
+      packageDetail.value.to_location.lng,
+    ],
   ];
-  L.polyline(route1, { color: "blue" }).addTo(map.value);
+  L.polyline(route, { color: "blue" }).addTo(map.value);
 
+  if (deliveryDetail.value && deliveryDetail.value.location) {
+    L.marker([
+      deliveryDetail.value.location.lat,
+      deliveryDetail.value.location.lng,
+    ])
+      .addTo(map.value)
+      .bindPopup("Driver Location")
+      .openPopup();
 
-  const route2 = [
-    [deliveryDetail.value.location.lat, deliveryDetail.value.location.lng],
-    [packageDetail.value.to_location.lat, packageDetail.value.to_location.lng],
-  ];
-  L.polyline(route2, { color: "green" }).addTo(map.value);
+    const route1 = [
+      [
+        packageDetail.value.from_location.lat,
+        packageDetail.value.from_location.lng,
+      ],
+      [deliveryDetail.value.location.lat, deliveryDetail.value.location.lng],
+    ];
+    L.polyline(route1, { color: "red" }).addTo(map.value);
+
+    const route2 = [
+      [deliveryDetail.value.location.lat, deliveryDetail.value.location.lng],
+      [packageDetail.value.to_location.lat, packageDetail.value.to_location.lng],
+    ];
+    L.polyline(route2, { color: "green" }).addTo(map.value);
+  }
 };
 
 const formatDate = (date) => {
