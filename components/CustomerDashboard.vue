@@ -117,7 +117,6 @@ const trackPackage = async () => {
   }
 };
 
-
 const initMap = () => {
   if (!packageDetail.value) return;
 
@@ -173,7 +172,7 @@ const initMap = () => {
   L.polyline(route, { color: "blue" }).addTo(map.value);
 
   if (deliveryDetail.value && deliveryDetail.value.location) {
-    L.marker([
+    const driverMarker = L.marker([
       deliveryDetail.value.location.lat,
       deliveryDetail.value.location.lng,
     ])
@@ -181,20 +180,19 @@ const initMap = () => {
       .bindPopup("Driver Location")
       .openPopup();
 
-    const route1 = [
+    const routeToDriver = [
       [
         packageDetail.value.from_location.lat,
         packageDetail.value.from_location.lng,
       ],
-      [deliveryDetail.value.location.lat, deliveryDetail.value.location.lng],
+      [
+        deliveryDetail.value.location.lat,
+        deliveryDetail.value.location.lng,
+      ],
     ];
-    L.polyline(route1, { color: "red" }).addTo(map.value);
+    L.polyline(routeToDriver, { color: "red" }).addTo(map.value);
 
-    const route2 = [
-      [deliveryDetail.value.location.lat, deliveryDetail.value.location.lng],
-      [packageDetail.value.to_location.lat, packageDetail.value.to_location.lng],
-    ];
-    L.polyline(route2, { color: "green" }).addTo(map.value);
+
   }
 };
 
