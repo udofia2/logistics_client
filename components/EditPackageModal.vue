@@ -84,12 +84,13 @@ const getPackage = async () => {
 
 const editPackage = async () => {
   try {
-    await axios.patch(`${BASEURL}/v1/package/${props.packageId}`, {
+    await axios.put(`${BASEURL}/v1/package/${props.packageId}`, {
       description: pkg.value.description,
       from_name: pkg.value.from_name,
       to_name: pkg.value.to_name,
     });
     emit("close");
+    window.location.reload()
   } catch (error) {
     console.error("Error editing package:", error);
   }
