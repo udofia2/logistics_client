@@ -52,10 +52,9 @@ import axios from "axios";
 
 const BASEURL = useRuntimeConfig().public.SERVER_URL;
 
-
 const emit = defineEmits(["close"]);
 const props = defineProps(["packages"]);
-const selectedPackageId = ref('')
+const selectedPackageId = ref("");
 
 const createDelivery = async () => {
   try {
@@ -64,6 +63,7 @@ const createDelivery = async () => {
     });
 
     alert("Delivery created successfully.");
+    window.location.reload();
     emit("close");
   } catch (error) {
     console.error("Error creating delivery:", error);
@@ -81,7 +81,7 @@ const createDelivery = async () => {
 };
 
 const filteredPackages = computed(() => {
-  return props.packages.filter(pkg => !pkg.active_delivery_id);
+  return props.packages.filter((pkg) => !pkg.active_delivery_id);
 });
 
 const close = () => {

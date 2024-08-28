@@ -1,5 +1,4 @@
 <template>
-  <div class="container mx-auto p-4 max-w-4xl">
     <div class="mb-6 flex items-center space-x-4">
       <input
         type="text"
@@ -68,7 +67,7 @@
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script setup>

@@ -5,17 +5,6 @@
 </template>
 <script setup>
 import { initFlowbite } from "flowbite";
-// import 'leaflet/dist/leaflet.css';
-// import L from "leaflet";
-
-// const loadLeaflet = new Promise((resolve) => {
-
-//   setTimeout(() => {
-//     import('leaflet').then((L) => {
-//       resolve(L);
-//     });
-//   }, 100);
-// });
 
 useHead({
   title: "Gozem",
@@ -32,7 +21,5 @@ useHead({
 });
 onMounted(async () => {
   initFlowbite();
-
-  const L = await loadLeaflet;
 });
 </script>
