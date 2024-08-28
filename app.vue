@@ -1,30 +1,27 @@
 <template>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 <script setup>
-import { initFlowbite } from 'flowbite'
-import 'leaflet/dist/leaflet.css';
-
-const loadLeaflet = new Promise((resolve) => {
-
-  setTimeout(() => {
-    import('leaflet').then((L) => {
-      resolve(L);
-    });
-  }, 100);
-});
+import { initFlowbite } from "flowbite";
 
 useHead({
   title: "Gozem",
-  script: {
-    src:`https://maps.googleapis.com/maps/api/js?key=${useRuntimeConfig().public.GOOGLE_MAP_API_KEY}&libraries=places`
-  }
-})
+  script: [
+    {
+      src: `https://maps.googleapis.com/maps/api/js?key=${
+        useRuntimeConfig().public.GOOGLE_MAP_API_KEY
+      }&libraries=places`,
+    },
+    {
+      src: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+    },
+  ],
+});
 onMounted(async () => {
-    initFlowbite();
+  initFlowbite();
 
-    const L = await loadLeaflet;
-})
+  const L = await loadLeaflet;
+});
 </script>
